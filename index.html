@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>设备监控平台</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link rel="icon" href="img/logo.png" type="img/x-ico"/>
+    <link rel="stylesheet" href="css/common_new1.css">
+    <link rel="stylesheet" href="css/swiper-4.1.0.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <style>
+
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+
+        .swiper-pagination-bullet {
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            font-size: 12px;
+            color: #fff;
+            opacity: 1;
+            background-image: url('img/nav_unactive.png');
+            border-radius: 0;
+            background-color: transparent;
+
+        }
+
+        .swiper-pagination-bullet-active {
+            color: #fff;
+            background-color: transparent;
+            border-radius: 0;
+            background-image: url('img/nav_active.png');
+
+        }
+
+        .energy-bullet {
+            width: 74px;
+            height: 74px;
+            text-align: center;
+            line-height: 20px;
+            color: #000000;
+            opacity: 1;
+            font-size: 11px;
+            background-color: #dddddd;
+            padding: 5px;
+        }
+
+        .energy-bullet-active {
+
+            font-size: 11px;
+            width: 74px;
+            height: 74px;
+            color: #ffffff;
+            background-color: #f04c24;
+        }
+
+        html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: auto;
+        }
+
+       body {
+            overflow:hidden;
+            margin: 0;
+            transform-origin: left top;
+            -webkit-transform-origin: left top;
+            height: 100%;
+            padding: 0;
+        }
+
+
+
+    </style>
+</head>
+<body style="width: 1920px;height: 1080px;opacity: 1;background-repeat:repeat;"
+      resize>
+<div v-cloak class="main" style="position:relative;">
+    <img src="img/1(2).png" style="width: 100%;position: absolute;left:0;top: 0;z-index: -1">
+    <img src="img/1_03(1).png" style="width: 75%; position: absolute;left:400px;top: 100px;z-index: 0">
+    <img src="img/light_on.png" style="width: 1%; position: absolute;left:1060px;top: 190px;z-index: 0">
+    <img src="img/light_on.png" style="width: 1%; position: absolute;left:1600px;top: 620px;z-index: 0">
+    <img src="img/light_on.png" style="width: 1%; position: absolute;left:1530px;top: 360px;z-index: 0">
+    <img src="img/light_on.png" style="width: 1%; position: absolute;left:1530px;top: 340px;z-index: 0">
+    <img src="img/light_on.png" style="width: 1%; position: absolute;left:1550px;top: 340px;z-index: 0">
+    <img src="img/light_on.png" style="width: 1%; position: absolute;left:1500px;top: 350px;z-index: 0">
+    <img src="img/light_on.png" style="width: 1%; position: absolute;left:1470px;top: 330px;z-index: 0">
+    <img src="img/light_on.png" style="width: 1%; position: absolute;left:1510px;top: 280px;z-index: 0">
+    <img src="img/light_on.png" style="width: 1%; position: absolute;left:1500px;top: 320px;z-index: 0">
+
+    <div style="z-index: 1;background: transparent;width: 100%;height: 100%;" id="content">
+        <div class="st-moni-title">
+            设备监控平台
+        </div>
+        <div class="st-moni-subtitle">
+            EQUIPMENT MONITORING PLATFORM
+        </div>
+        <div class="st-moni-date"  id="moni-time">
+
+        </div>
+
+        <div class="left-content" id="left-content">
+
+            <div class="left-title">
+                设备实时状态
+            </div>
+
+            <div class="left-item" v-for="(item,index) in devices">
+                <div style="margin-left: 47px;position: relative;width: 100%;height: 100%">
+                    <img class="left-item-bg" src="img/left_item.png">
+                    <div class="left-item-name"  :id="'name'+index">
+                        {{item.name}}
+                    </div>
+                    <div class="left-item-online" :id="'name'+index">
+                        {{item.online}}
+                    </div>
+                    <div class="left-item-online-title">
+                        在线/总数
+                    </div>
+                    <div class="left-item-total"  >
+                        {{item.total}}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+     <!--   v-for="item in devices"-->
+
+        <div class="bottom-content" id="bottom-content">
+            <div class="bottom-item" v-for="(item,index) in devices" >
+                <div class="bottom-item-bg">
+                    <img class="bottom-item-header-bg" src="img/bottom_item_header_bg.png">
+
+                    <div class="bottom-item-project-name">
+                     {{item.name}}
+                    </div>
+                    <div class="bottom-item-circle" :id="'circle_'+index">
+
+                    </div>
+                    <div class="bottom-item-percent-name">
+                      {{item.percent}}%
+
+                    </div>
+                    <div class="percentname">总在线比</div>
+                    <div class="bottom-item-text" >
+                        <div class="c" v-for="(sub,index1) in item.sub_list">
+                            <div class="name"> {{sub.name}}</div>
+                            <!--    <div class="loadbar"> -->
+                                    <!-- /     <span class="bar"style="width:80% "> 80%</span>-->
+               <canvas :id="'bar_'+index+index1" width="195" height="20" style="border:1px solid #c3c3c3 ; border-radius:5px;background-color:#CCCCCC "></canvas>
+
+                            <!--  </div>-->
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+
+
+          <div class="footer">
+              <img src="img/white_logo.png" style="width: 126px;float: left">
+              <div style="float: left;margin-left: 16px">
+                  广州三川控制系统工程设备有限公司
+              </div>
+          </div>
+      </div>
+
+  </div><!-- /.modal -->
+
+<!-- Add Pagination -->
+<script src="topercent.js"></script>
+<script src="script/echarts.min.js"></script>
+<script src="script/jquery.js"></script>
+<script src="script/bootstrap.min.js"></script>
+
+<script src="script/swiper-4.1.0.min.js"></script>
+<script src="script/vue.js"></script>
+<script src="script/d3.v3.js"></script>
+<script src="script/common.js"></script>
+
+
+<script src="script/circle-progress.js"></script>
+
+<script>
+
+
+
+</script>
+
+
+<script>
+    //页面等比例缩放
+    (function () {
+        var body = $("body"),
+            win = $(window),
+            main = $("#main");
+        var resizePage = function () {
+            var bodyWidth = body.width(),
+                winWidth = win.width(),
+                bodyHeight = body.height(),
+                scale = winWidth / bodyWidth;
+//            console.log("body的宽度:" + bodyWidth);
+//            console.log("win的宽度:" + winWidth);
+//            console.log("缩放比为:" + scale);
+            body.css('transform', 'scale(' + scale + ')');
+//            main.css('transform', 'scale(' + scale + ')');
+        };
+        if (typeof body.attr('resize') !== 'undefined') {
+            resizePage();
+            win.resize(resizePage);
+        }
+    })();
+</script>
+
+
+</body>
+</html>
